@@ -256,7 +256,7 @@
                                     <div class="card mb-4">
                                         <div class="card-header"><i class="fas fa-minus mr-1"></i>Remove a house</div>
                                         <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas>
-                                          <form method="POST" action="" accept-charset="UTF-8" style="color:black;margin-top: -50px;">
+                                          <form method="POST" id="removeHouse" name="removeHouse" action="" accept-charset="UTF-8" style="color:black;margin-top: -50px;">
                                             <div class="btn-group">
                                               <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Remove house

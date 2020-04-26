@@ -25,21 +25,21 @@
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i> Current Insurances</div>
                             <div class="card-body">
-                                <table border="1" id="tableHouse">
-                            		<thead>
+                                <table border="1" id="tableAuto" name="tableAuto" width="100%">
+                            		<thead align="center">
                             			<tr>
                             				<th>Policy Number</th>
-                                			<th>House Location</th>
+                                			<th>Vehicle VIN</th>
                                 			<th>Policy Start Date</th>
                                 			<th>Policy End Date</th>
                                 			<th>Premium Amount</th>
                                 			<th>Policy Status</th>
                             			</tr>
                             		</thead>
-                            		<tbody>
+                            		<tbody align="center">
                             			<tr>
                             				<td>1</td>
-                            				<td>New York</td>
+                            				<td>12342</td>
                             				<td>24th Apr 2020</td>
                             				<td>23th Apr 2021</td>
                             				<td>1200</td>

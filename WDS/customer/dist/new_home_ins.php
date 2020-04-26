@@ -22,7 +22,7 @@
                  
                  <div class="home_ins_content">
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i> New Insurance</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i> New Home Insurance</div>
                             <div class="card-body">
                             	<center>Select a package to proceed.</center>
                             	<br>
@@ -63,52 +63,68 @@
                                     <center><input type="radio" name="Package" id="Platinum"></center>
                                   </div>
 			                        </div>
-			                        <div class="col-md-5"></div><button type="button" class="btn btn-primary col-md-2">NEXT</button></center><div class="col-md-5"></div>
-                              	</div>  
+			                        <div class="col-md-5"></div><button type="button" class="btn btn-primary col-md-2">NEXT (Do we really need this?) </button></center><div class="col-md-5"></div>
+                              </div>  
 
                               	<br><br>
                               	 <!-- NEXT SECTION HERE -->
-                              	 <div class="row text-center card mb-4">
-                              	 	<div class="card-header"><i class="fas fa-table mr-1"></i>Fill in your details</div>
-                              	 	<p>
-                              				Make a form with all the validations which will input all the necessary data for creating a home insurance.
-                              				Please embellish whatever you can.  <br>
-                              				Also, change all the ids, names, and for attributes of each component to reflect the corresponding field.
-                              				<br> <b>P.S.</b>You can use the below fields to reproduce other fields.
-                              				and Use our ERD to reference which fields to put. 
-                              				<br><i>and remove this text once done.</i>
-                              				<br>Eg: 
-
-                              			</p>
-                              			<br>
-                              		<form method="POST" class="card-body">
-                              			
-                              			<div class="row">
-                              				<div class="col-md-6 row">
-                              					<!-- Left section of the form -->
-                              					<label for="policyName" class="col-md-5 text-right">
-                              		<!-- NOTE: the for attribute of Label and name and id attributes of input below be same -->
-		                              				Policy Name:
-		                              			</label>
-		                              			<input type="text" name="policyName" id="policyName" placeholder="Enter some policy Name:" class="col-md-6 text-left">
-
-                              				</div>
-                              				<div class="col-md-6 row">
-                              					<!-- Left section of the form -->
-                              					<label for="packageName" class="col-md-5 text-right">
-                              		<!-- NOTE: the for attribute of Label and name and id attributes of input below be same -->
-		                              				Package Name:
-		                              			</label>
-		                              			<input type="text" name="policyName" id="policyName" placeholder="Enter some policy Name:" class="col-md-6 text-left">
-
-                              				</div>
-
-                              			</div>
-                              			<br><br>
-                              			<center><button class="btn btn-primary" type="submit">Submit</button></center>
-
-                              		</form>
-                              	</div>
+                              	 <div class="col-xl-12">
+                                    <div class="card mb-12">
+                                        <div class="card-header"><i class="fas fa-plus mr-1"></i>Select details</div>
+                                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas>
+                                          <form method="POST" action="" accept-charset="UTF-8" style="color:black;margin-top: -50px;">
+                                                <div class="row">
+                                                  <div class="btn-group">
+                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="start_home">
+                                                    Select home the you would like to purchase insurance for
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                      <a class="dropdown-item">1. New York</a>
+                                                      <a class="dropdown-item">2. New J</a>
+                                                    </div>
+                                                  </div>
+                                                </div> 
+                                                <br>
+                                                <div class="row">
+                                                    <div>
+                                                      <label for="pdate">
+                                                         Start Date:
+                                                      </label>
+                                                      <br>
+                                                    </div>
+                                                    <input id="sdate" class="form-control" type="date" placeholder="Start Date:" name="sdate">
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div>
+                                                      <label for="edate">
+                                                         End Date:
+                                                      </label>
+                                                      <br>
+                                                    </div>
+                                                      <input id="edate" class="form-control" type="date" placeholder="End Date:" name="edate">
+                                                    </div>
+                                                </br>
+                                                <!--Calculate the amount-->
+                                                <div class="row">
+                                                    <div>
+                                                      <label for="amount">
+                                                         Amount Payable:
+                                                      </label>
+                                                      <br>
+                                                    </div>
+                                                      <input id="amount" class="form-control" type="text" placeholder="Calculate the amount from the above inputs" name="amount" disabled="">
+                                                    </div>
+                                                </br>
+                                                <!-- Submit button -->
+                                                <br>
+                                                <div class="row text-center">
+                                                          <input class="btn btn-primary col-md-12" id="newHouse" class="form-control" type="submit" name="newHouse">
+                                                </div>
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
 		                        
                             </div>
                         </div>
