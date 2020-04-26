@@ -30,34 +30,38 @@
                               		<div class="card mb-4 col-md-3">
 			                            <div class="card-header"><i class="fas fa-archive mr-1"></i> Bronze package</div>
 			                            <div class="card-body">
-			                                Details about bronze package (without photograph)
-			                                It should have a radio button like this: 
+			                                Our bronze package is a affordable financial safeguard against natural disasters like earthquake, tornado, rains, lightning, hailstorm etc. It only covers the immovable structure (like walls, roof etc.) of the house.
 			                            </div>
 			                            <div class="card-footer">
-			                            	 <!-- RADIO BUTTON IS HERE -->
-			                            	<center><input type="radio" name="bronzePackage"></center>
+			                            	<center><input type="radio" name="Package" id="Bronze"></center>
 			                            </div>
 			                        </div>  
 			                        <div class="card mb-4 col-md-3">
 			                            <div class="card-header"><i class="fas fa-archive mr-1"></i> Silver package</div>
 			                            <div class="card-body">
-			                                Details about bronze package (without photograph)
-			                                It should have a radio button.
+			                                Our silver package is a financial safeguard against both natural disasters and man made disasters like riots, fire, civil commotion etc. It only covers the immovable structure of the house
 			                            </div>
+                                  <div class="card-footer">
+                                    <center><input type="radio" name="Package" id="Silver"></center>
+                                  </div>
 			                        </div>  
 			                        <div class="card mb-4 col-md-3">
 			                            <div class="card-header"><i class="fas fa-archive mr-1"></i> Gold package</div>
 			                            <div class="card-body">
-			                                Details about bronze package (without photograph)
-			                                It should have a radio button.
+			                                Our gold package is a financial safeguard against both natural disasters and man made disasters. It covers both movable (like furniture, electronics etc.) and immovable structure of the house
 			                            </div>
+                                  <div class="card-footer">
+                                    <center><input type="radio" name="Package" id="Gold"></center>
+                                  </div>
 			                        </div>  
 			                        <div class="card mb-4 col-md-3">
 			                            <div class="card-header"><i class="fas fa-archive mr-1"></i> Platinum package</div>
 			                            <div class="card-body">
-			                                Details about bronze package (without photograph)
-			                                It should have a radio button.
+			                                Our platinum package is a comprehensive safeguard against any disaster along with taking care of your accomoadation when while your home is undergoing repair
 			                            </div>
+                                  <div class="card-footer">
+                                    <center><input type="radio" name="Package" id="Platinum"></center>
+                                  </div>
 			                        </div>
 			                        <div class="col-md-5"></div><button type="button" class="btn btn-primary col-md-2">NEXT</button></center><div class="col-md-5"></div>
                               	</div>  
