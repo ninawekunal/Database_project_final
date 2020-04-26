@@ -45,7 +45,7 @@
                             <a class="nav-link" href="index.php"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard</a>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"
+                            <a class="nav-link collapsed" href="index.php" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Our Products
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div

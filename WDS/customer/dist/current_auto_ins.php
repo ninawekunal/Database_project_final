@@ -25,40 +25,30 @@
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i> Current Insurances</div>
                             <div class="card-body">
-                                <table border="1" id="tableHouse">
-		                                    		<p>This table will have all details of the user's current auto insurances.
-		                                    			<br> Change the fields to reflect appropriate fields in the insurance table.
-		                                    			<br> tag th tag indicates table heading. See more about tables in html for more details.
-		                                    		</p>
-		                                    		<thead>
-		                                    			<tr>
-		                                    				<!-- 1. --> <th>H. No</th>
-			                                    			<!-- 2. --> <th>Location</th>
-			                                    			<!-- 3. --> <th>Purchase Date</th>
-			                                    			<!-- 4. --> <th>Area(sqFt)</th>
-			                                    			<!-- 5. --> <th>Type</th>
-			                                    			<!-- 6. --> <th>Rented?</th>
-		                                    			</tr>
-		                                    		</thead>
-		                                    		<tbody>
-		                                    			<tr>
-		                                    				<td>1</td>
-		                                    				<td>New York</td>
-		                                    				<td>24th Apr 2020</td>
-		                                    				<td>1000</td>
-		                                    				<td>Apartment</td>
-		                                    				<td>Yes</td>
-		                                    			</tr>
-		                                    			<tr>
-		                                    				<td>2</td>
-		                                    				<td>New J</td>
-		                                    				<td>24th Apr 2020</td>
-		                                    				<td>2000</td>
-		                                    				<td>Apartment</td>
-		                                    				<td>No</td>
-		                                    			</tr>
-		                                    		</tbody>
-		                                    	</table>
+                                <table border="1" id="tableAuto" name="tableAuto" width="100%">
+                            		<thead align="center">
+                            			<tr>
+                            				<th>Policy Number</th>
+                                			<th>Vehicle VIN</th>
+                                			<th>Policy Start Date</th>
+                                			<th>Policy End Date</th>
+                                			<th>Premium Amount</th>
+                                			<th>Policy Status</th>
+                            			</tr>
+                            		</thead>
+                            		<tbody align="center">
+                            			<tr>
+                            				<td>1</td>
+                            				<td>12342</td>
+                            				<td>24th Apr 2020</td>
+                            				<td>23th Apr 2021</td>
+                            				<td>1200</td>
+                            				<td>C</td>
+                            			</tr>
+                            		</tbody>          				
+		                        </table>
+		                        Note - <br>
+		                        Policy Status - C means current and P means expired 
                             </div>
                         </div>
                     </div>

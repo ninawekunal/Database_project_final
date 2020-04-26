@@ -21,7 +21,7 @@
                                 <div class="card bg-primary text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">Home Insurances</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="home_ins_houses.php">View Details</a>
+                                        <a class="small text-white stretched-link" href="current_ins.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                 <div class="card bg-danger text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">My Details</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="my_details.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                 <div class="card bg-secondary text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">My Houses</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="home_ins_houses.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                 <div class="card bg-info text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">My Vehicles</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="vehi_and_drivers.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                                 <div class="card bg-success text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">Driver Details</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="vehi_and_drivers.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
