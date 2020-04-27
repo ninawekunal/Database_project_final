@@ -44,42 +44,49 @@
 		$stmt->close();
 	}
 
-	function login($email, $password){
+	function showCustDetails($email){
+
 		global $conn;
 
-		$password = md5($password);
+		$sql = "SELECT * FROM cust_details WHERE email='$email'";
+		$result = mysqli_query($conn,$sql);
+		$array = mysqli_fetch_array($result);
 
-		$query = "SELECT * FROM cust_details WHERE EMAIL='$email' AND password='$password'";
-		$result = mysqli_query($conn,$query);
-		$rows = mysqli_num_rows($result);
-		if($rows > 0){
-			return 1;
-		}
-		else{
-			return 0;
-		}
+	    if(isset($array)){
+	    	return $array;
+	    }
+	    else{
+	    	return 0;
+	    }
+
 	}
 
-	function register($email,$password, $fname, $lname){
-
+	function updateDetails($email, $first_name,$middle_name, $last_name, $address, $gender, $marital_status){
 		global $conn;
+		
 
+		// prepare and bind
+		$stmt = $conn->prepare("UPDATE cust_details set first_name=?,middle_name=?, last_name=?, address=?, gender=?, marital_status=? where email=?");
+		$stmt->bind_param("sssssss", $first_name,$middle_name, $last_name, $address, $gender, $marital_status, $email);			// sss indicate format is in string.
 
-		$password = md5($password); 	//encrypting.
-
-
-		$stmt = $conn->prepare("INSERT INTO cust_details (email, first_name, last_name, password) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param("ssss",$email, $fname, $lname, $password);			
-
-			
 		$res = $stmt->execute();
+
 		if($res){
-			return 1;
+			echo "
+	          <script> 
+	            window.location.replace('my_details.php');
+	          </script>
+	          ";
 		}
 		else{
-			return 0;
+			$uDdisplay = "inline;";
+            $uDerrorMsg = "Error in updating! <br> Please try again after some time.";
+            $uDalert_class = "alert alert-danger";
 		}
 
+		$stmt->close();
+
 	}
+
 
  ?>

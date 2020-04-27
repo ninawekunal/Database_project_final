@@ -1,3 +1,7 @@
+<?php 
+  session_start();
+  require_once 'functions.php';
+ ?>
 <!DOCTYPE html>
  <html>
  <head>
@@ -15,15 +19,20 @@
     require_once 'header.php';
    ?>
   <div id="layoutSidenav_content">
-                <?php 
-                  require_once 'update_my_details.php';
-                 ?>
+                
                  <div class="home_ins_content">
                         <div class="container-fluid  col-xl-12">
                         <h1 class="mt-12">Update Personal details</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Details provided by user</li>
+                            <li class="breadcrumb-item active">Update your details here</li>
                         </ol>
+
+
+                        <div id="error" style="display: <?php echo isset($uDdisplay)?$uDdisplay:'none';  ?>;">
+                          <br><br>
+                          <div class="<?php echo isset($uDalert_class)?$uDalert_class:'none'; ?>"><?php echo isset($uDerrorMsg)?$uDerrorMsg:'none';  ?></div>
+                        </div>
+
                     
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>UPDATE MY DETAILS</div>
@@ -33,104 +42,154 @@
                                     <form method="POST" action="" accept-charset="UTF-8" style="color:black;margin-top: -50px;">
                                         <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
                                           <!--Customer ID-->
-                                          <div class="row">
-                                              <div>
-                                                <label for="Customer ID">
+
+
+                                          <!-- Displaying customer data from the backend -->
+                                          <?php 
+
+                                              $result = showCustDetails($_SESSION['email']);
+                                              
+                                              echo "
+
+                                                  <div class='row'>
+                                              <div class='col-md-3 text-right' style='margin-top: 5px;'>
+                                                <label for='Customer ID'>
                                                   Customer ID:
                                                 </label>
                                                 <br>
                                               </div>
-                                            <input id="Cust_id" class="form-control" type="text" placeholder="Populate from backend. Can't be changed" name="Cust_id" disabled="">
+                                            <input id='Cust_id' class='form-control col-md-6' type='text' name='Cust_id' disabled='' value='".$result['cust_id']."'>
                                           </div>
+                                          <br>
 
-                                          <!--First Name-->
-                                          <div class="row">
-                                              <div>
-                                                <label for="First_name">
+                                          <div class='row'>
+                                              <div class='col-md-3 text-right' style='margin-top: 5px;'>
+                                                <label for='email'>
+                                                  Email:
+                                                </label>
+                                                <br>
+                                              </div>
+                                            <input id='email' class='form-control col-md-6' type='email' placeholder='Email' name='email' disabled value='".$result['email']."'/>
+                                          </div>
+                                          <br>
+
+                                          
+                                          <div class='row'>
+                                              <div class='col-md-3 text-right' style='margin-top: 5px;'>
+                                                <label for='First_name'>
                                                   First Name:
                                                 </label>
                                                 <br>
                                               </div>
-                                            <input id="First_name" class="form-control" type="text" placeholder="Populate from backend" name="First_name">
+                                            <input id='First_name' class='form-control col-md-6' type='text' placeholder='Enter First Name' name='fName' value='".$result['first_name']."'>
+                                          </div>
+                                          <br>
+
+                                          <div class='row'>
+                                              <div class='col-md-3 text-right' style='margin-top: 5px;'>
+                                                <label for='middleName'>
+                                                  Middle Name:
+                                                </label>
+                                                <br>
+                                              </div>
+                                            <input id='middleName' class='form-control col-md-6' type='text' placeholder='Enter Middle Name' name='mName' value='".$result['middle_name']."'>
                                           </div>
 
-                                          <!--Last Name-->
-                                          <div class="row">
-                                              <div>
-                                                <label for="Last_name">
+                                          <br>
+                                          
+                                          <div class='row'>
+                                              <div class='col-md-3 text-right' style='margin-top: 5px;'>
+                                                <label for='Last_name'>
                                                   Last Name:
                                                 </label>
                                                 <br>
                                               </div>
-                                            <input id="Last_name" class="form-control" type="text" placeholder="Populate from backend" name="Last_name">
+                                            <input id='Last_name' class='form-control col-md-6' type='text' placeholder='Enter Last Name' name='lName' value='".$result['last_name']."'>
                                           </div>
 
-                                          
-                                          <!-- Gender -->
-                                                <div class="row">
-                                                  <legend class="col-form-label">Gender:</legend>
-                                                  <div class="col-sm-10">
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="radio" name="gender" id="male" value="M">
-                                                      <label class="form-check-label" for="male">
+                                          <br>
+
+
+                                          <div class='row'>
+                                              <div class='col-md-3 text-right' style='margin-top: 5px;'>
+                                                <label for='address'>
+                                                  Address:
+                                                </label>
+                                                <br>
+                                              </div>
+                                            <textarea id='address' class='form-control col-md-6' rows='2' placeholder='Enter Address' name='address'>". $result['address'] ."</textarea>
+                                          </div>
+
+
+                                          <br>
+
+
+                                            <div class='row'>
+                                                  <legend class='col-form-label col-md-3 text-right' style='margin-top: 5px;'>Gender:</legend>
+                                                  <div class='col-sm-10 col-md-6'>
+                                                    <div class='form-check'>
+                                                      <input class='form-check-input' type='radio' name='gender' id='male' value='M' ". ($result['gender']=='M'?'checked':'') .">
+                                                      <label class='form-check-label' for='male'>
                                                         Male
                                                       </label>
                                                     </div>
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="radio" name="gender" id="female" value="F">
-                                                      <label class="form-check-label" for="female">
+                                                    <div class='form-check'>
+                                                      <input class='form-check-input' type='radio' name='gender' id='female' value='F' ". ($result['gender']=='F'?'checked':'') .">
+                                                      <label class='form-check-label' for='female'>
                                                         Female
                                                       </label>
                                                     </div>
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="radio" name="gender" id="no_provide" value="NP">
-                                                      <label class="form-check-label" for="no_provide">
-                                                        Choose not to provide
-                                                      </label>
-                                                    </div>
                                                   </div>
-                                                </div>
-                                                <!-- Marital Status -->
-                                                <div class="row">
-                                                  <legend class="col-form-label">Marital Status:</legend>
-                                                  <div class="col-sm-10">
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="radio" name="marital_status" id="married" value="M">
-                                                      <label class="form-check-label" for="married">
+                                            </div>
+                                                <br>  
+
+
+                                                <div class='row'>
+                                                  <legend class='col-form-label col-md-3 text-right' style='margin-top: 5px;'>Marital Status:</legend>
+                                                  <div class='col-sm-10 col-md-6'>
+                                                    <div class='form-check'>
+                                                      <input class='form-check-input' type='radio' name='marital_status' id='married' value='M' ". ($result['marital_status']=='M'?'checked':'') .">
+                                                      <label class='form-check-label' for='married'>
                                                         Married
                                                       </label>
                                                     </div>
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="radio" name="marital_status" id="single" value="S">
-                                                      <label class="form-check-label" for="home_sec_no">
+                                                    <div class='form-check'>
+                                                      <input class='form-check-input' type='radio' name='marital_status' id='single' value='S' ". ($result['marital_status']=='S'?'checked':'') .">
+                                                      <label class='form-check-label' for='single'>
                                                         Single
                                                       </label>
                                                     </div>
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="radio" name="marital_status" id="widow" value="W">
-                                                      <label class="form-check-label" for="widow">
+                                                    <div class='form-check'>
+                                                      <input class='form-check-input' type='radio' name='marital_status' id='widow' value='W' ". ($result['marital_status']=='W'?'checked':'') .">
+                                                      <label class='form-check-label' for='widow'>
                                                         Widow/Widower
                                                       </label>
                                                     </div>
                                                   </div>
                                                 </div>
-                                          <!-- Cutomer type-->      
-                                          <div class="row">
-                                              <div>
-                                                <label for="Customer type">
-                                                  Customer type:
-                                                </label>
                                                 <br>
-                                              </div>
-                                            <input id="Cust_id" class="form-control" type="text" placeholder="Populate from backend. Can't be changed" name="cust_type" disabled="">
-                                          </div>
 
+
+
+                                              ";
+
+
+                                           ?> 
                                         <br>
                                         <div class="row text-center">
-                                                <a href="my_details.php">
-                                            <button class="btn btn-primary col-xl-12" type="button" name="updateDetails">Update Details</button>
-                                          </a>
-                                          &nbsp
+                                          <div class="col-md-3"></div>
+                                            <a href="" class="col-md-6">
+                                              <button class="btn btn-success col-xl-12" name="updateButton" type="submit" name="updateDetails">Update Details</button>
+                                            </a>
+                                          &nbsp;
+                                        </div>
+                                        <br>
+                                        <div class="row text-center">
+                                          <div class="col-md-3"></div>
+                                            <a href="my_details.php" class="col-md-6">
+                                              <button class="btn btn-danger col-xl-12" type="button">Back</button>
+                                            </a>
+                                          &nbsp;
                                         </div>
                                     </form>
                                 </div>
@@ -152,3 +211,23 @@
          </div>      <!-- This is the ending of the header -->
  </body>
  </html>
+
+ <?php 
+
+
+  if(isset($_POST['updateButton'])){
+      $fname = $_POST['fName'];
+      $mname = $_POST['mName'];
+      $lname = $_POST['lName'];
+      $address = $_POST['address'];
+      $gender = $_POST['gender'];
+      $marital_status = $_POST['marital_status'];
+      $email = $_SESSION['email'];
+
+      updateDetails($email, $fname, $mname, $lname, $address, $gender, $marital_status);
+
+  }
+
+
+
+  ?>

@@ -12,7 +12,10 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/index_style.css">
 </head>
 <body>
-
+<div id="error" style="display: <?php echo isset($_SESSION['display'])?$_SESSION['display']:'none';  ?>;">
+  <br><br>
+  <div class="<?php echo $_SESSION['alert_class']; ?>"><?php echo isset($_SESSION['errorMsg'])?$_SESSION['errorMsg']:'none';  ?></div>
+</div>
 <div class="jumbotron text-center" id="top">
   <h1>We Do Secure</h1> 
   <p>We specialize in insuring your vehicles and homes.</p> 
