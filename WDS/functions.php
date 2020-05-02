@@ -67,18 +67,29 @@
 
 		$password = md5($password); 	//encrypting.
 
-
-		$stmt = $conn->prepare("INSERT INTO cust_details (email, first_name, last_name, password) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param("ssss",$email, $fname, $lname, $password);			
-
-			
-		$res = $stmt->execute();
-		if($res){
-			return 1;
+		$query = "SELECT * FROM cust_details WHERE EMAIL='$email'";
+		$result = mysqli_query($conn,$query);
+		$rows = mysqli_num_rows($result);
+		if($rows > 0){
+			// user already present with the email address, don't allow
+			return -1;
 		}
 		else{
-			return 0;
+			$stmt = $conn->prepare("INSERT INTO cust_details (email, first_name, last_name, password) VALUES (?, ?, ?, ?)");
+			$stmt->bind_param("ssss",$email, $fname, $lname, $password);			
+
+				
+			$res = $stmt->execute();
+			if($res){
+				return 1;
+			}
+			else{
+				return 0;
+			}
 		}
+
+
+		
 
 	}
 

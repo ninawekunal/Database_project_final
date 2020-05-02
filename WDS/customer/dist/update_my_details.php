@@ -28,9 +28,11 @@
                         </ol>
 
 
-                        <div id="error" style="display: <?php echo isset($uDdisplay)?$uDdisplay:'none';  ?>;">
+                        <!-- Error message display -->
+                        <div id="error" style="display:<?php echo isset($_SESSION['display'])?$_SESSION['display']:'none;'; unset($_SESSION['display']); ?> ">
                           <br><br>
-                          <div class="<?php echo isset($uDalert_class)?$uDalert_class:'none'; ?>"><?php echo isset($uDerrorMsg)?$uDerrorMsg:'none';  ?></div>
+                          <div class="<?php echo isset($_SESSION['alert_class'])?$_SESSION['alert_class']:'none;'; unset($_SESSION['alert_class']); ?>">
+                            <?php echo isset($_SESSION['errorMsg'])?$_SESSION['errorMsg']:'none;'; unset($_SESSION['errorMsg']);  ?></div>
                         </div>
 
                     
@@ -224,7 +226,7 @@
       $marital_status = $_POST['marital_status'];
       $email = $_SESSION['email'];
 
-      updateDetails($email, $fname, $mname, $lname, $address, $gender, $marital_status);
+      updateCustDetails($email, $fname, $mname, $lname, $address, $gender, $marital_status);
 
   }
 

@@ -163,9 +163,9 @@ if(isset($_SESSION['email'])){
         $password = $_POST['password'];
         $status = login($email,$password);
         if($status == 0){
-            $_SESSION['display'] = "inline;";
-            $_SESSION['errorMsg'] = "Invalid Credentials. <br> Please Login Again!;";
-            $_SESSION['alert_class'] = "alert alert-danger";
+            $display = "inline;";
+            $errorMsg = "Invalid Credentials. <br> Please Login Again!";
+            $alert_class = "alert alert-danger";
         }
         else{
           $_SESSION['email'] = $email;
@@ -187,17 +187,24 @@ if(isset($_SESSION['email'])){
 
         $status = register($email,$password, $fname, $lname);
         if($status == 0){
-            $_SESSION['display'] = "inline;";
-            $_SESSION['errorMsg'] = "Error in registering! <br> Please try again after some time.";
-            $_SESSION['alert_class'] = "alert alert-danger";
+            $display = "inline;";
+            $errorMsg = "Error in registering! <br> Please try again after some time.";
+            $alert_class = "alert alert-danger";
+        }
+        else if($status == -1){
+            $display = "inline;";
+            $errorMsg = "Error in registering! <br> Email already registered <br> Try with different Email";
+            $alert_class = "alert alert-danger";
         }
         else{ 
-          $_SESSION['display'] = "inline;";
-          $_SESSION['errorMsg'] = "Successfully registered! <br> Log in using your Credentials!";
-          $_SESSION['alert_class'] = "alert alert-success";
+          $display = "inline;";
+          $errorMsg = "Successfully registered! <br> Log in using your Credentials!";
+          $alert_class = "alert alert-success";
           
           
         }
     } 
+
+    
 
  ?>
