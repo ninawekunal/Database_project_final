@@ -80,7 +80,7 @@
                     if ($res == false) {
                       echo " 
                       <tr>
-                        <td colspan='7'>No Data Found</td>
+                        <td colspan='7'>No Houses found. &nbsp;&nbsp;Add some from my houses portal.</td>
                       </tr>
                     ";
                     } else {

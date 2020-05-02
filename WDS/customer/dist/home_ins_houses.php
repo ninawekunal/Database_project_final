@@ -110,7 +110,7 @@ require_once 'functions.php';
                             echo "<td> <button type='button' class='btn btn-warning' data-toggle='modal' data-target='#showDeleteModal".$result['home_id']."'><b>x</b></button></td>";
                           }
                           else{
-                            echo "<td>Nota</td>";
+                            echo "<td>NotA</td>";
                           }
                           echo "</tr>
                       ";
@@ -306,6 +306,8 @@ require_once 'functions.php';
                 </div>
               </div>
             </div>
+                  <!-- End of add houses -->
+
           </div>
         </div>
       </div>
@@ -342,17 +344,18 @@ if (isset($_POST['newHouse'])) {
   $basement = $_POST['basement'];
 
 
-  $result = insertHome($cust_id, $location, $purchase_date, $purchase_value, $area_sq_feet, $home_type, $auto_fire_noti, $home_security, $swimming_pool, $basement);
+  $result = insertHome($cust_id, $location, $purchase_date, $purchase_value, $area_sq_feet, $home_type, $auto_fire_noti, $home_security, $swimming_pool, $basement, 0);
 
-  if ($result == 1) {
-    $_SESSION['display'] = "inline";
-    $_SESSION['errorMsg'] = "Successfully inserted the house";
-    $_SESSION['alert_class'] = "alert alert-success";
-    echo "<script>window.location.replace('home_ins_houses.php');</script>";
-  } else if ($result == 0) {
+  if ($result == 0) {
     $_SESSION['display'] = "inline";
     $_SESSION['errorMsg'] = "Error in inserting house! <br> Please try again after some time.";
     $_SESSION['alert_class'] = "alert alert-danger";
+    echo "<script>window.location.replace('home_ins_houses.php');</script>";
+  }
+  else{
+    $_SESSION['display'] = "inline";
+    $_SESSION['errorMsg'] = "Successfully inserted the house";
+    $_SESSION['alert_class'] = "alert alert-success";
     echo "<script>window.location.replace('home_ins_houses.php');</script>";
   }
 }
