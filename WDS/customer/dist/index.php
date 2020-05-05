@@ -1,3 +1,14 @@
+<?php 
+    session_start();
+    if(!isset($_SESSION['email'])){
+        echo "
+          <script> 
+            window.location.replace('../../index.php');
+          </script>
+          ";
+    }
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,7 +23,13 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">
+                            <!-- Getting the name of the user:  -->
+                            <?php 
+                                    $result = showCustDetails($_SESSION['email']);
+                                    echo $result['first_name']."'s Dashboard";
+                             ?>
+                        </h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">My Dashboard</li>
                         </ol>
@@ -21,7 +38,7 @@
                                 <div class="card bg-primary text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">Home Insurances</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="current_ins.php">View Details</a>
+                                        <a class="small text-white stretched-link" href="home_ins_houses.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -76,18 +93,7 @@
                         </div>
                     </div>
                 </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                <?php require_once 'footer.php'; ?>
             </div>
          </div>      <!-- This is the ending of the header --> 
     </body>

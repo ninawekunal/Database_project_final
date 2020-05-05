@@ -12,7 +12,10 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/index_style.css">
 </head>
 <body>
-
+<div id="error" style="display: <?php echo isset($display)?$display:'none';  ?>;">
+  <br><br>
+  <div class="<?php echo isset($alert_class)?$alert_class:'none'; ?>"><?php echo isset($errorMsg)?$errorMsg:'none';  ?></div>
+</div>
 <div class="jumbotron text-center" id="top">
   <h1>We Do Secure</h1> 
   <p>We specialize in insuring your vehicles and homes.</p> 

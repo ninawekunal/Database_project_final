@@ -1,5 +1,14 @@
 <?php require_once 'db.php';
 require_once 'bootstrap.php';
+require_once 'functions.php';
+session_start();
+if(isset($_SESSION['email'])){
+  echo "
+          <script> 
+            window.location.replace('customer/index.php');
+          </script>
+          ";
+}
 ?>
 
 
@@ -46,7 +55,6 @@ require_once 'bootstrap.php';
                     <div class="modal-body">
                         <div class="box">
                              <div class="content">
-                                <div class="error"></div>
                                 <div class="form loginBox">
                                     <form method="POST" action="" accept-charset="UTF-8" style="color:black;">
                                         <div class="row">
@@ -55,7 +63,7 @@ require_once 'bootstrap.php';
                                                    Email:
                                                 </label>
                                             </div>
-                                            <input class="col-md-9" id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                            <input class="col-md-9" id="email" class="form-control" type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="format: a@a.az">
                                         </div>
                                         <br>
                                         <div class="row">
@@ -64,16 +72,17 @@ require_once 'bootstrap.php';
                                                    Password:
                                                 </label>
                                             </div>
-                                            <input class="col-md-9" id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                            <input class="col-md-9" id="password" class="form-control" type="password" placeholder="Password" name="password" required pattern=".{6,10}" title="Between 6-12 characters">
                                         </div>
                                         <br>
                                         <div class="row text-center">
                                             <div class="col-md-2"></div>
                                             <center>
-                                                <input class="btn btn-default btn-login col-md-9" style="background: #00c696;color:white; font-weight: bold;" type="button" value="LOGIN" onclick="loginAjax()">
+                                                <input class="btn btn-default btn-login col-md-9" style="background: #00c696;color:white; font-weight: bold;" type="submit" value="LOGIN" name="loginButton" id="loginButton">
                                             </center>
                                         </div>
                                     </form>
+                                    <?php if(isset($script)){ echo '<script>alert($script)<script>'; } ?>
                                     </div>
                                     
                                 </div>
@@ -90,7 +99,7 @@ require_once 'bootstrap.php';
                                                    Email:
                                                 </label>
                                             </div>
-                                            <input class="col-md-7" id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                            <input class="col-md-7" id="email" class="form-control" type="email" placeholder="Email" name="rEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="format: a@a.az">
                                         </div>
                                         <br>
                                         <div class="row text-right">
@@ -99,22 +108,31 @@ require_once 'bootstrap.php';
                                                    Password:
                                                 </label>
                                             </div>
-                                            <input class="col-md-7" id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                            <input class="col-md-7" id="password" class="form-control" type="password" placeholder="Password" name="rPassword" required pattern=".{6,10}" title="Between 6-12 characters">
                                         </div>
                                         <br>
                                         <div class="row text-right">
                                             <div class="col-md-4">
-                                                <label for="cpassword">
-                                                   Confirm Password:
+                                                <label for="fname">
+                                                   First Name:
                                                 </label>
                                             </div>
-                                            <input class="col-md-7" id="cpassword" class="form-control" type="password" placeholder="Confirm Password" name="cpassword">
+                                            <input class="col-md-7" id="fname" class="form-control" type="text" placeholder="First Name" name="rFname" required>
+                                        </div>
+                                        <br>
+                                         <div class="row text-right">
+                                            <div class="col-md-4">
+                                                <label for="lname">
+                                                   Last Name:
+                                                </label>
+                                            </div>
+                                            <input class="col-md-7" id="lname" class="form-control" type="text" placeholder="Last Name" name="rLname" required>
                                         </div>
                                         <br>
                                         <div class="row text-center">
                                             <div class="col-md-4"></div>
                                             <center>
-                                                <input class="btn btn-default btn-login col-md-7" style="background: #00c696;color:white; font-weight: bold;" type="button" value="REGISTER">
+                                                <input class="btn btn-default btn-login col-md-7" style="background: #00c696;color:white; font-weight: bold;" type="submit" name="registerButton" value="REGISTER">
                                             </center>
                                         </div>
                                     </form>
@@ -137,3 +155,57 @@ require_once 'bootstrap.php';
                   </div>
               </div>
 </div>
+<?php 
+
+    // Login code
+    if(isset($_POST["loginButton"])){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $status = login($email,$password);
+        if($status == 0){
+            $display = "inline;";
+            $errorMsg = "Invalid Credentials. <br> Please Login Again!";
+            $alert_class = "alert alert-danger";
+        }
+        else{
+          $_SESSION['email'] = $email;
+          $_SESSION['last_login_time'] = time();
+          echo "
+          <script> 
+            window.location.replace('customer/index.php');
+          </script>
+          ";
+        }
+    } 
+
+
+    // Register code
+    if(isset($_POST["registerButton"])){
+        $email = $_POST['rEmail'];
+        $password = $_POST['rPassword'];
+        $fname = $_POST['rFname'];
+        $lname = $_POST['rLname'];
+
+        $status = register($email,$password, $fname, $lname);
+        if($status == 0){
+            $display = "inline;";
+            $errorMsg = "Error in registering! <br> Please try again after some time.";
+            $alert_class = "alert alert-danger";
+        }
+        else if($status == -1){
+            $display = "inline;";
+            $errorMsg = "Error in registering! <br> Email already registered <br> Try with different Email";
+            $alert_class = "alert alert-danger";
+        }
+        else{ 
+          $display = "inline;";
+          $errorMsg = "Successfully registered! <br> Log in using your Credentials!";
+          $alert_class = "alert alert-success";
+          
+          
+        }
+    } 
+
+    
+
+ ?>

@@ -1,4 +1,9 @@
-<!-- This is the header for customer dashboard -->
+<?php 
+if ( session_status() != PHP_SESSION_ACTIVE ) session_start();
+require_once 'functions.php';
+
+ ?>
+ <!-- This is the header for customer dashboard -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +75,16 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <b>Kunal Ninawe</b>
+                        <b>
+                            
+                            <!-- Getting the name of the user:  -->
+                            <?php 
+                                    $result = showCustDetails($_SESSION['email']);
+                                    echo $result['first_name']. " " . $result['last_name'];
+                             ?>
+
+
+                        </b>
                     </div>
                 </nav>
             </div>
