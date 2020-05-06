@@ -66,8 +66,8 @@ require_once 'functions.php';
                             ></a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <a class="nav-link collapsed" href="home_ins_houses.php"><i class="fas fa-home"></i> &nbsp;House Details</a>
-                                <a class="nav-link collapsed" href="vehi_and_drivers.php"><i class="fas fa-user-shield"></i> &nbsp;Driver Details</a>
-                                <a class="nav-link collapsed" href="vehi_and_drivers.php"><i class="fas fa-car"></i> &nbsp;&nbsp;Vehicle Details</a>
+                                <a class="nav-link collapsed" href="drivers.php"><i class="fas fa-user-shield"></i> &nbsp;Driver Details</a>
+                                <a class="nav-link collapsed" href="vehicles.php"><i class="fas fa-car"></i> &nbsp;&nbsp;Vehicle Details</a>
                                 <a class="nav-link collapsed" href="my_details.php"><i class="fas fa-user"></i> &nbsp;&nbsp;My Details</a>
                             </div>
                             

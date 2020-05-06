@@ -1169,6 +1169,59 @@
 
 
 
+	// AUTO INSURANCES START
+
+
+	// VEHICLES
+
+	function addVehicle($vin, $vtype, $vmake, $vmodel, $vyear, $vstatus, $email){
+
+		global $conn;
+
+
+		if(isset($vin) && isset($vin) && isset($vin) && isset($vin) && isset($vin)){
+			// All values are present
+
+			$sql = "SELECT * FROM vehicles WHERE vin='$vin'";
+			$query = mysqli_query($conn, $sql);
+			$rows = mysqli_num_rows($query);
+			if($rows>0){
+				return -1;			// VIN already exists
+			}
+			else{
+				// Proceed with insertion of data for vehicle
+
+				//Getting the cust_id first.
+
+				$sql1 = "SELECT cust_id from cust_details WHERE email='$email'";
+				$query1 = mysqli_query($conn, $sql1);
+
+
+				$result1 = mysqli_fetch_array($query1);
+
+				$cust_id = $result1['cust_id'];
+
+				$stmt = $conn->prepare("INSERT INTO vehicles (vin, vehicle_type, make, model, year, status, cust_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+				
+				$stmt->bind_param("sssssss", $vin, $vtype, $vmake, $vmodel, $vyear, $vstatus, $cust_id);			
+
+				$res = $stmt->execute();
+
+				if($res){
+					$stmt->close();
+					return 1;			// Successfully inserted the data	
+				}
+				else{
+					$stmt->close();
+					return 2;			// Error in adding the vehicle
+				}
+			}
+		}
+		else{
+			return 0;			// Fields cannot be empty.
+		}
+	}
+
 
 
 

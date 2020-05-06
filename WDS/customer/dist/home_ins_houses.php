@@ -7,13 +7,6 @@ require_once 'functions.php';
 
 <head>
   <title>Home Insurance</title>
-  <style type="text/css">
-    #tableHouse tr td,
-    th {
-      text-align: center;
-      padding: 10px;
-    }
-  </style>
 </head>
 
 <body class="sb-nav-fixed">
@@ -29,7 +22,6 @@ require_once 'functions.php';
 
     <div id="error" style="display:<?php echo isset($_SESSION['display']) ? $_SESSION['display'] : 'none;';
                                     unset($_SESSION['display']); ?> ">
-      <br><br>
       <div class="<?php echo isset($_SESSION['alert_class']) ? $_SESSION['alert_class'] : 'none;';
                   unset($_SESSION['alert_class']); ?>">
         <?php echo isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : 'none;';

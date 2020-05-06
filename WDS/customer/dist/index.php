@@ -76,7 +76,7 @@
                                 <div class="card bg-info text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">My Vehicles</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="vehi_and_drivers.php">View Details</a>
+                                        <a class="small text-white stretched-link" href="vehicles.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                 <div class="card bg-success text-white mb-4" style="font-weight: bold;">
                                     <div class="card-body">Driver Details</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="vehi_and_drivers.php">View Details</a>
+                                        <a class="small text-white stretched-link" href="drivers.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
