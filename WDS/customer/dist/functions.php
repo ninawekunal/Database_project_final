@@ -1,7 +1,16 @@
 <?php 
 	require_once 'db.php';
+	if ( session_status() != PHP_SESSION_ACTIVE ) session_start();
+	function autoLogout(){
+		if(isset($_SESSION['email'])){
+			$mins = 60;
+			if((time() - $_SESSION['last_login_time'])>(60*$mins)){
+				echo "<script>window.location.replace('logout.php');</script>";
+			}
+		}
+	}
+	autoLogout();
 
-	
 	
 	//START OF CUSTOMER DETAILS
 
@@ -82,6 +91,9 @@
 	function showHomeDetails($email){
 
 		global $conn;
+
+		$email = $_SESSION['email'];
+        $res = showUnInsuredHomes($email);
 
 		$sql = "SELECT * from home_details where cust_id=(select cust_id from cust_details where email='$email')";
 		$res = mysqli_query($conn,$sql);
@@ -319,7 +331,12 @@
 
 	function getHouseCount($email){
 		$res = showHomeDetails($_SESSION['email']);
-        return mysqli_num_rows($res);
+        if($res==false){
+			return 0;
+		}
+		else{
+			return mysqli_num_rows($res);
+		}
 	}
 
 
@@ -554,11 +571,11 @@
 		$duration = $duration*12;
 		$due_date = "";
 
-		$i = 1;
+		$i = 0;
 		while($i<=$duration){
 
 			$due_date =  strtotime("+".$i."Month", $start_date);
-			$due_date = date('Y-m-d', $due_date);
+			$due_date = date('Y-m-t', $due_date);
 			$stmt = $conn->prepare("INSERT INTO home_ins_payments (due_date, amount, hinsid) VALUES (?, ?, ?)");
 			$stmt->bind_param("sss", $due_date, $total_amount, $hinsid);			
 
@@ -681,6 +698,14 @@
 
 	function addAssetModal($hinsid){
 
+		global $conn;
+
+
+		$email = $_SESSION['email'];
+		$res = showUnInsuredHomes($email);
+		
+
+
 
 		echo "
 		<div class='modal fade' id='addAssetModal".$hinsid."' tabindex='-1' role='dialog' aria-labelledby='addAssetModal1Label' aria-hidden='true'>
@@ -694,7 +719,72 @@
 			</div>
 			<div class='modal-body modal-lg'>
 			  <!--Add new houses-->
-			  <div class='col-xl-12'>
+			  <div class='col-xl-12 col-md-12'>
+					<div class='card mb-4'>
+						<div class='card-header'>
+							<i class='fas fa-circle mr-1'></i>Select from existing houses
+						</div>
+						<div class='card-body'>
+
+							<!-- Show uninsured homes -->
+
+							<form method='POST'>
+							<input type='hidden' value='".$hinsid."' name='hinsid'>
+							<div class='table-responsive'>
+							<table class='table table-bordered table-hover'>
+							<thead class='thead-light'>
+								<tr>
+									<th>H No.</th>
+									<th>Loc</th>
+									<th>Pur Date</th>
+									<th>Pur Val</th>
+									<th>Area</th>
+									<th>Select</th>
+								</tr>
+							</thead>
+							<tbody>
+								";
+								if ($res == false) {
+									echo " 
+									<tr>
+									  <td colspan='7'>No Houses found. &nbsp;&nbsp;Add some from my houses portal.</td>
+									</tr>
+								  ";
+								} else {
+									while ($result = mysqli_fetch_array($res)) {
+			  
+									  $result = convertHomeProperFormat($result);
+			  
+									  createHomeDetailsModal($result);
+										
+									  echo "
+									  <input type='hidden' value='".$result['home_id']."' name='home_id'> 
+									  <tr>
+										<td>" . $result['home_id'] . "</td>
+										<td>" . $result['location'] . "</td>
+										<td>" . $result['purchase_date'] . "</td>
+										<td>" . $result['purchase_value'] . "</td>
+										<td>" . $result['area_sq_feet'] . "</td>
+										
+										<td><input type='checkbox' name='addHouseToIns[]' value='" . $result['home_id'] . "' style='zoom: 1.5;'></td>
+									  </tr>
+										";
+									}
+								}
+							
+
+							echo "
+							</tbody>
+							</table>
+							</div>
+							<center><button type='submit' name='addAssetExisting' class='btn btn-primary'><b>Add House</b></button></center>
+							</form>
+						</div>
+					</div>
+					<div class='row text-left'>
+						<div class='col-md-6'></div>
+						<h4>OR</h4>
+					</div>
 					<div class='card mb-4'>
 					  <div class='card-header'><i class='fas fa-plus mr-1'></i>Add a new house</div>
 					  <div class='card-body'>
@@ -916,9 +1006,181 @@
 
 
 
-
-
 	// CURRENT INSURANCES END
+
+
+
+
+	// Start of HOME INS PAYMENTS
+
+	function getCurrentMonthPaymentCount($email){
+		global $conn;
+
+		
+
+		$sql = "SELECT * FROM home_ins_payments WHERE MONTH(due_date)<=MONTH(SYSDATE()) AND YEAR(due_date)<=YEAR(SYSDATE()) AND status = '0' AND hinsid IN(
+			SELECT hinsid FROM home_ins WHERE cust_id=(
+				SELECT cust_id FROM cust_details WHERE email='$email')
+		) ORDER BY due_date asc";
+
+		$query = mysqli_query($conn, $sql);
+		$rows = mysqli_num_rows($query);
+		if($rows>0){
+			return $rows;
+		}
+		else{
+			return 0;
+		}
+	}
+
+	function showCurrentMonthPayment($hinsid, $date, $status){
+
+
+		global $conn;
+
+		
+
+		$sql = "SELECT * FROM home_ins_payments WHERE MONTH(due_date)<=MONTH('$date') AND YEAR(due_date)<=YEAR('$date') AND hinsid='$hinsid' AND status = '$status' ORDER BY due_date asc";
+
+		$query = mysqli_query($conn, $sql);
+		$rows = mysqli_num_rows($query);
+		if($rows>0){
+			return $query;
+		}
+		else{
+			return false;
+		}
+
+
+	}
+
+	function createPaymentsModal($row){
+
+		$today = date("Y-m-d",strtotime("today"));
+
+
+		echo "		<!-- Modal -->
+		<div class='modal fade' id='payNowModal".$row['payment_id']."' tabindex='-1' role='dialog' aria-labelledby='payNowModal".$row['payment_id']."Label' aria-hidden='true'>
+		  <div class='modal-dialog' role='document'>
+		  <form method='POST'>
+			<div class='modal-content'>
+			  <div class='modal-header'>
+				<h5 class='modal-title' id='payNowModal".$row['payment_id']."Label'>Pay Now For Ins: <b>".$row['hinsid'],"</b></h5>
+				<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+				  <span aria-hidden='true'>&times;</span>
+				</button>
+			  </div>
+			  <div class='modal-body'>
+					<input type='hidden' value='".$row['payment_id']."' name='payment_id'>
+					
+						<table class='table table-bordered'>
+							<tbody>
+								<tr>
+									<th class='text-center'>Due Date: </th>
+									<td class='text-left' style='color:red;'><b>".getFormattedDate(strtotime($row['due_date']))."</b></td>
+								</tr>
+								<tr>
+									<th class='text-center'>Payment Date: </th>
+									<td class='text-left' style='color:green;'><b>".getFormattedDate(strtotime($today))."</b></td>
+								</tr>
+								<tr>
+									<th class='text-center'>Amount: </th>
+									<td class='text-left' style='color:brown;'><b>$".$row['amount']."</b></td>
+								</tr>
+								<tr>
+									<th class='text-center'>Payment Type: </th>
+									<td class='text-left'>
+										<select name='payment_type' id='payment_type' style='width: 100%;'>
+											<option value='Paypal'>PayPal</option>
+											<option value='Debit'>Debit</option>
+											<option value='Credit'>Credit</option>
+											<option value='Check'>Check</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					
+				
+			  </div>
+			  <div class='modal-footer'>
+				<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+				<button type='submit' name='paynow' class='btn btn-primary'><b>Pay Now!</b></button>
+			  </div>
+
+			</div>
+			</form>
+			</div>
+		  </div>";
+
+	}
+
+
+	function makePayment($payment_id, $payment_type){
+		
+
+		global $conn;
+
+		$stmt = $conn->prepare("UPDATE home_ins_payments SET status='1', payment_date=SYSDATE(), payment_type=? WHERE payment_id=?");
+		$stmt->bind_param("ss", $payment_type, $payment_id);			// sss indicate format is in string.
+
+		$res = $stmt->execute();
+
+		if($res){
+			$stmt->close();
+			return 1;
+		}
+		else{
+			$stmt->close();
+			return 0;
+		}
+	}
+
+
+	function showPaymentHistory($email){
+		
+		global $conn;
+
+		$sql = "SELECT * FROM home_ins_payments WHERE hinsid IN(
+			SELECT hinsid FROM home_ins WHERE cust_id =(
+				SELECT cust_id FROM cust_details WHERE email='$email'
+			)) AND status='1'";
+
+		$query = mysqli_query($conn, $sql);
+		$rows = mysqli_num_rows($query);
+
+		if($rows>0){
+			return $query;
+		}
+		else{
+			return false;
+		}
+
+
+	}
+
+
+
+
+
+	// END OF HOME INS PAYMENTS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -33,10 +33,12 @@
         <?php
 
         $result1 = showHomeInsDetails($_SESSION['email']);
-        while ($row1 = mysqli_fetch_array($result1)) {
+        if($result1!=false){
+            while ($row1 = mysqli_fetch_array($result1)) {
 
-            $res1 = createHomeModal($row1['hinsid']);
-            addAssetModal($row1['hinsid']);
+                $res1 = createHomeModal($row1['hinsid']);
+                addAssetModal($row1['hinsid']);
+            }
         }
 
         ?>
@@ -46,7 +48,7 @@
             <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-table mr-1"></i> Current Insurances</div>
                 <div class="card-body">
-                    <div class="table-table-responsive-lg">
+                    <div class="table-responsive-lg">
                         <table class="table table-bordered table-hover text-center">
                             <thead class="thead-light">
                                 <tr>
@@ -55,7 +57,6 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Amount</th>
-                                    <th>Payments</th>
                                     <th>Status</th>
                                     <th>Add Assets</th>
                                 </tr>
@@ -68,7 +69,7 @@
                             $result = showHomeInsDetails($_SESSION['email']);
                             if ($result == false) {
                                 echo " <tr>
-                                        <td colspan='8'>No insurances found. &nsp;&nbsp;Add some from new insurance portal.</td>
+                                        <td colspan='8'>No insurances found. &nbsp;&nbsp;Add some from new insurance portal.</td>
                                       </tr>";
                             } else {
                                 while ($row = mysqli_fetch_array($result)) {
@@ -89,7 +90,6 @@
                                                 <td>" . $row['start_date'] . "</td>
                                                 <td>" . $row['end_date'] . "</td>
                                                 <td>" . $row['total_amount'] . "</td>
-                                                <td> 1,2,3</td>
                                                 <td>" . $row['status'] . "</td>
                                                 <td><a href='#' data-toggle='modal' data-target='#addAssetModal".$row['hinsid']."'><i class='fas fa-plus-circle'></i></a></td>
                                             </tr>
@@ -172,6 +172,59 @@ if (isset($_POST['newHouse'])) {
         $_SESSION['alert_class'] = "alert alert-danger";
         echo "<script>window.location.replace('current_ins.php');</script>";
     }
+  }
+
+  if(isset($_POST['addAssetExisting'])){
+        $home_id = 0;
+        $homeIds = "";
+        $hinsid = $_POST['hinsid'];
+        $totalAmountDetails = array("purchase_value" => 0, "area" => 0, "autoFireDiscount" => 0, "homeSecurityDiscount" => 0, "swimmingCharges" => 0, "basementDiscount" => 0, "totalAmount" => 0);
+
+        if (!empty($_POST['addHouseToIns'])) {
+            $homeIds =  $_POST['addHouseToIns'];
+            // Loop to store and display values of individual checked checkbox.
+            foreach ($_POST['addHouseToIns'] as $selected) {
+              $home_id = $selected;
+              $getAmountDetails = calculateHomeInsAmount($home_id);
+      
+              foreach ($getAmountDetails as $k => $v) {
+                $totalAmountDetails[$k] += $v;
+              }
+              $result = insureHouse($home_id, $hinsid);
+                if($result){
+                    //Successfully created insurance and set home ids
+                    $success = true;
+                }
+                else{
+                    // Trouble in insuring the house.
+                    $success = false;
+                    $_SESSION['display'] = "inline";
+                    $_SESSION['errorMsg'] = "Error in insuring house! <br> Please try again with all fields filled.";
+                    $_SESSION['alert_class'] = "alert alert-danger";
+                    echo "<script>window.location.replace('new_home_ins.php');</script>";
+                }
+            }
+            if($success == true){
+                // Successfully registered with houses.
+                $today = date("Y-m-d",strtotime("today"));
+                addAssetToIns($hinsid, $totalAmountDetails['totalAmount'], $today);
+                $_SESSION['display'] = "inline";
+                $_SESSION['errorMsg'] = "Successfully updated the insurance for your houses. <br> You can see them below.";
+                $_SESSION['alert_class'] = "alert alert-success";
+                echo "<script>window.location.replace('current_ins.php');</script>";
+              }
+              else{
+                  // error in registering.
+                  $_SESSION['display'] = "inline";
+                  $_SESSION['errorMsg'] = "Error in adding in your insurance! <br> Please try again after some time.";
+                  $_SESSION['alert_class'] = "alert alert-danger";
+                  echo "<script>window.location.replace('current_ins.php');</script>";
+              }
+            
+          }
+          else{
+            echo "<script>alert('Please select the house');</script>";
+          }
   }
 
 

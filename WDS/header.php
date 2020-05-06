@@ -63,7 +63,7 @@ if(isset($_SESSION['email'])){
                                                    Email:
                                                 </label>
                                             </div>
-                                            <input class="col-md-9" id="email" class="form-control" type="email" placeholder="Email" name="email" required>
+                                            <input class="col-md-9" id="email" class="form-control" type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="format: a@a.az">
                                         </div>
                                         <br>
                                         <div class="row">
@@ -72,7 +72,7 @@ if(isset($_SESSION['email'])){
                                                    Password:
                                                 </label>
                                             </div>
-                                            <input class="col-md-9" id="password" class="form-control" type="password" placeholder="Password" name="password" required>
+                                            <input class="col-md-9" id="password" class="form-control" type="password" placeholder="Password" name="password" required pattern=".{6,10}" title="Between 6-12 characters">
                                         </div>
                                         <br>
                                         <div class="row text-center">
@@ -99,7 +99,7 @@ if(isset($_SESSION['email'])){
                                                    Email:
                                                 </label>
                                             </div>
-                                            <input class="col-md-7" id="email" class="form-control" type="email" placeholder="Email" name="rEmail" required>
+                                            <input class="col-md-7" id="email" class="form-control" type="email" placeholder="Email" name="rEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="format: a@a.az">
                                         </div>
                                         <br>
                                         <div class="row text-right">
@@ -108,7 +108,7 @@ if(isset($_SESSION['email'])){
                                                    Password:
                                                 </label>
                                             </div>
-                                            <input class="col-md-7" id="password" class="form-control" type="password" placeholder="Password" name="rPassword" required>
+                                            <input class="col-md-7" id="password" class="form-control" type="password" placeholder="Password" name="rPassword" required pattern=".{6,10}" title="Between 6-12 characters">
                                         </div>
                                         <br>
                                         <div class="row text-right">
@@ -169,6 +169,7 @@ if(isset($_SESSION['email'])){
         }
         else{
           $_SESSION['email'] = $email;
+          $_SESSION['last_login_time'] = time();
           echo "
           <script> 
             window.location.replace('customer/index.php');

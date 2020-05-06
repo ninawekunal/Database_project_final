@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+	if ( session_status() != PHP_SESSION_ACTIVE ) session_start();
 	unset($_SESSION['email']);
 	session_destroy();
 	echo "

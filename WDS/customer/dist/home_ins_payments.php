@@ -1,163 +1,252 @@
  <!DOCTYPE html>
  <html>
+
  <head>
  	<title>Home Insurance</title>
  	<style type="text/css">
- 		#tableHouse tr td,th{
+ 		#tableHouse tr td,
+ 		th {
  			text-align: center;
- 			padding:10px;
+ 			padding: 10px;
  		}
  	</style>
 
  </head>
+
  <body class="sb-nav-fixed">
- 	<?php 
+ 	<?php
 		require_once 'header.php';
-	 ?>
+		?>
  	<div id="layoutSidenav_content">
-                <?php 
-                	require_once 'home_ins_header.php';
-                 ?>
+ 		<?php
+			require_once 'home_ins_header.php';
+		?>
 
-                 
-                 <div class="home_ins_content">
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i> Payments</div>
-                            <div class="card-body">
-                                <div class="row">
-                                	<!--Invoice generated-->
-		                            <div class="col-xl-12">
-		                            	<div class="row justify-content-center">
-		                                <div class="card mb-4">
-		                                    <div class="card-header"><i class="fas fa-list mr-1"></i>Invoices generated and payment due <b>(2)</b> </div>
-		                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
-		                                    	<table border="1" id="invoice_details">
-		                                    		<thead>
-		                                    			<tr>
-		                                    				<th>Invoice Number</th>
-			                                    			<th>Policy Number</th>
-			                                    			<th>Home id</th>
-			                                    			<th>Installment id</th>
-			                                    			<th>Invoice Date(xx/xx/YYYY)</th>
-			                                    			1) Have created this row "invoice date". In the Oracle model we only had "invoice due date" </br>
-			                                    			<th>Invoice Due Date(xx/xx/YYYY)</th>
-			                                    			2) Fill in the month/date or date/month in the heading later
-			                                    			<th>Invoice Amount($)</th>
-		                                    			</tr>
-		                                    		</thead>
-		                                    		<tbody align="center">
-		                                    			<tr>
-		                                    				<td>1</td>
-		                                    				<td>1</td>
-		                                    				<td>2</td>
-		                                    				<td>8</td>
-		                                    				<td>11/11/2011</td>
-		                                    				<td>12/12/2012</td>
-		                                    				<td>2300</td>
-		                                    			</tr>
-		                                    		</tbody>
-		                                    	</table>
-		                                    </div>
-		                                </div>
-		                            	</div>
-		                            </div>
+<input type="hidden" name="emailField" id="userEmail" value="<?php echo $_SESSION['email']; ?>">
 
-		                            <!--Payment history-->
-		                            <div class="col-xl-12">
-		                                <div class="card mb-4">
-		                                    <div class="card-header"><i class="fas fa-home mr-1"></i>Payment history </div>
-		                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
-		                                    	<table border="1" id="Payment">
-		                                    		<thead>
-		                                    			<tr>
-		                                    				<th>Payment Id</th>
-			                                    			<th>Policy Number</th>
-			                                    			<th>Home ID</th>
-			                                    			<th>Home location</th>
-			                                    			<th>Payment date(xx/xx/YYYY)</th>
-			                                    			<th>Payment type</th>
-			                                    			<th>Payment amount($)</th>
-		                                    			</tr>
-		                                    		</thead>
-		                                    		<tbody align="center">
-		                                    			<tr>
-		                                    				<td>1</td>
-		                                    				<td>1</td>
-		                                    				<td>1</td>
-		                                    				<td>New York</td>
-		                                    				<td>24th Apr 2020</td>
-		                                    				<td>PayPal</td>
-		                                    				<td>2300</td>
-		                                    			</tr>
-		                                    			<tr>
-		                                    				<td>2</td>
-		                                    				<td>3</td>
-		                                    				<td>2</td>
-		                                    				<td>New J</td>
-		                                    				<td>22th Apr 2020</td>
-		                                    				<td>Debit</td>
-		                                    				<td>	100</td>
-		                                    			</tr>
-		                                    		</tbody>
-		                                    	</table>
-		                                    </div>
-		                                </div>
-		                            </div>
+<!-- Div class for error handling -->
 
-                                	<!--Payment due-->
-		                            <div class="col-xl-12">
-		                                <div class="card mb-4">
-		                                    <div class="card-header"><i class="fas fa-calculator mr-1"></i>Make Installment Payment<b></b> </div>
-		                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
-		                                    	<form method="POST" accept-charset="UTF-8" style="color:black;margin-top: -50px;" id="auto_pay">
-		                                    		
-		                                    			<div class="dropdown">
-                                              				<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" id="payment_home">
-                                                			Select House
-                                                			</button>
-                                              				<div class="dropdown-menu">
-                                                				<a class="dropdown-item">1. New York</a>
-                                                				<a class="dropdown-item">2. New J</a>
-                                              				</div>
-                                              			</div>
-                                              			
-                    									<br>
-                                              		
-                                                  		<div class="dropdown">
-                                              				<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" id="payment_method">
-                                                			Method of payment
-                                                			</button>
-                                              				<div class="dropdown-menu">
-                                                				<a class="dropdown-item">PayPal</a>
-                                                				<a class="dropdown-item">Credit</a>
-                                                				<a class="dropdown-item">Debit</a>
-                                                				<a class="dropdown-item">Cheque</a>
-                                              				</div>
-                                              			</div>	
-                                              		
-                                              		<br>
-                                              		<!--Submit button-->
-                                              		<div>
-                                                          <input class="btn btn-primary col-md-4" id="makePayment" class="form-control" type="Submit" name="pay_home">
-                                              		</div>
 
-		                                    	</form>
-		                                    </div>
-		                                </div>
-		                            </div>
+<div id="error" style="display:<?php echo isset($_SESSION['display']) ? $_SESSION['display'] : 'none;';
+								unset($_SESSION['display']); ?> ">
+	<div class="<?php echo isset($_SESSION['alert_class']) ? $_SESSION['alert_class'] : 'none;';
+				unset($_SESSION['alert_class']); ?>">
+		<?php echo isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : 'none;';
+		unset($_SESSION['errorMsg']);  ?></div>
+</div>
 
-		                        </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </main>
 
-                <!-- After main footer should come. -->
-                <?php 
-                	require_once 'footer.php';
-                 ?>
-            </div>
-         </div>      <!-- This is the ending of the header -->
+		<?php
+
+        $result1 = showHomeInsDetails($_SESSION['email']);
+        if($result1!=false){
+            while ($row1 = mysqli_fetch_array($result1)) {
+
+                $res1 = createHomeModal($row1['hinsid']);
+				addAssetModal($row1['hinsid']);
+				$date = date("Y-m-d",strtotime("today"));
+				$res45 = showCurrentMonthPayment($row1['hinsid'], $date, '0');
+				$rows_result = 0;
+				if ($res45 == false) {
+				} else {
+					while ($row45 = mysqli_fetch_array($res45)) {
+						createPaymentsModal($row45);
+						$rows_result +=1;
+					}
+				}
+            }
+		}
+		
+
+		?>
+		
+		<?php
+			$date = date("Y-m-d",strtotime("today"));
+			$result = showHomeInsDetails($_SESSION['email']);
+			$paymentsThisMonth = 0;
+		?>
+		
+ 		<div class="home_ins_content">
+ 			<div class="card mb-4">
+ 				<div class="card-header"><i class="fas fa-table mr-1"></i> Payments</div>
+ 				<div class="card-body">
+ 					<div class="row">
+ 						<!--Invoice generated-->
+ 						<div class="col-xl-12 col-md-12">
+ 							<div class="row">
+ 								<div class="card mb-4 col-md-12">
+ 									<div class="card-header row">
+		 								<div class="col-md-5">
+										 <i class="fas fa-list mr-1"></i> <b>Payments Due:</b><b style="color:red">(<?php echo $rows_result; ?>)</b>
+										 </div>
+									</div>
+ 									<div class="card-body">
+ 										<div class="table-responsive">
+										 <table id="invoice_details" class="table table-bordered table-hover text-center">
+										 	<thead class="thead-light">
+											<tr>
+												<th>Policy No.</th>
+												<th>House Details</th>
+												<th>Start Date</th>
+												<th>End Date</th>
+												<th>Amount</th>
+												<th>Due Date</th>
+												<th>Status</th>
+												<th>Pay Now</th>
+											</tr>
+										</thead>
+										<tbody>
+                                
+
+								<?php
+
+								
+								if ($result == false) {
+									
+								} else {
+									while ($row = mysqli_fetch_array($result)) {
+	
+										
+										$row['start_date'] = getFormattedDate(strtotime($row['start_date']));
+										$row['end_date'] = getFormattedDate(strtotime($row['end_date']));
+
+										$res1 = showCurrentMonthPayment($row['hinsid'], $date, '0');
+										if($res1==false){
+											
+										}
+										else{
+											while($row1 = mysqli_fetch_array($res1)){
+												$row1['due_date'] = getFormattedDate(strtotime($row1['due_date']));
+												$paymentsThisMonth +=1;
+
+												
+
+												echo "
+													
+													<tr>
+														<td>".$row['hinsid']."</td>
+														<td><a href='#' data-toggle='modal' data-target='#homeDetailsModall".$row['hinsid']."'>Click Here</a></td>
+														<td>" . $row['start_date'] . "</td>
+														<td>" . $row['end_date'] . "</td>
+														<td>" . $row['total_amount'] . "</td>
+														<td> ".$row1['due_date']."</td>
+														<td> Not Payed</td>
+														<td><a href='#' data-toggle='modal' data-target='#payNowModal".$row1['payment_id']."'>Pay Now</a></td>
+													</tr>
+												";
+											}
+										}
+	 
+										
+									}
+								}
+								if($paymentsThisMonth==0){
+									echo "<tr>
+											<td colspan='8'>No payments for this month.</td>
+										  </tr>";
+								}
+	
+								?>
+	
+									
+								</tbody>
+ 										</table>
+										 </div>
+ 									</div>
+ 								</div>
+ 							</div>
+ 						</div>
+
+ 						<!--Payment history-->
+ 						<div class="col-xl-12">
+ 							<div class="card mb-4">
+ 								<div class="card-header"><i class="fas fa-home mr-1"></i><b>Payment history</b> </div>
+ 								<div class="card-body">
+ 									<div class="table-responsive">
+									 <table id="Payment" class="table table-bordered table-hover text-center">
+ 										<thead class="thead-light">
+ 											<tr>
+ 												<th>Payment Id</th>
+ 												<th>Policy No.</th>
+ 												<th>Payment date</th>
+ 												<th>Payment type</th>
+ 												<th>Amount</th>
+ 											</tr>
+ 										</thead>
+ 										<tbody>
+											<?php
+												
+												$res2 = showPaymentHistory($_SESSION['email']);
+
+												if($res2 == false){
+													echo "
+														<tr>
+															<td colspan='5'>No Payments made yet!</td>
+														</tr>
+													";
+												}
+												else{
+													while($row2 = mysqli_fetch_array($res2)){
+														echo "
+														<tr>
+															<td>".$row2['payment_id']."</td>
+															<td>".$row2['hinsid']."</td>
+															<td>".$row2['payment_date']."</td>
+															<td>".$row2['payment_type']."</td>
+															<td>".$row2['amount']."</td>
+														</tr>
+														";
+													}
+												}
+												
+
+
+											?>
+
+ 											
+ 										</tbody>
+ 									</table>
+									</div>
+ 								</div>
+ 							</div>
+ 						</div>
+
+						 <!-- End of payment History -->
+ 					</div>
+ 				</div>
+ 			</div>
+ 		<!-- </div> -->
+ 	</div>
+ 	</main>
+
+ 	<!-- After main footer should come. -->
+ 	<?php
+		require_once 'footer.php';
+		?>
+ 	</div>
+ 	</div> <!-- This is the ending of the header -->
  </body>
+
  </html>
+
+ <?php
+
+	if(isset($_POST['paynow'])){
+		$payment_type = $_POST['payment_type'];
+		$payment_id = $_POST['payment_id'];
+		$result = makePayment($payment_id, $payment_type);
+		if($result==1){
+			$_SESSION['display'] = "inline";
+			$_SESSION['errorMsg'] = "Successfully recorded the payment! <br> Thank you!";
+			$_SESSION['alert_class'] = "alert alert-success";
+			echo "<script>window.location.replace('home_ins_payments.php');</script>";
+		}
+		else{
+			$_SESSION['display'] = "inline";
+			$_SESSION['errorMsg'] = "Error in recording payment! <br> Please try again after some time.";
+			$_SESSION['alert_class'] = "alert alert-danger";
+			echo "<script>window.location.replace('home_ins_payments.php');</script>";
+		}
+	}
+
+?>
