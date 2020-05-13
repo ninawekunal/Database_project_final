@@ -5,7 +5,7 @@
 
  ?>
  <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="offline.appcache">
 <head>
   <!-- Theme Made By www.w3schools.com -->
   <title>WDS</title>
@@ -54,7 +54,7 @@
     </div>
     <div class="col-sm-11">
       <h2>Home Insurances</h2>
-      <h4><strong>Details:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+      <h4><strong>Details:</strong> Our mission is to provide affordable home insurance that can be purchased by all and hedge their risks</h4><br>
     </div>
   </div>
   <div class="row">
@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm-11">
       <h2>Auto Insurances</h2>
-      <h4><strong>Details:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+      <h4><strong>Details:</strong> Our mission is to provide risk adjusted auto insurance that is affordable to all.</h4><br>
     </div>
   </div>
 	

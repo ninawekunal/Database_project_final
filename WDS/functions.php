@@ -1,49 +1,6 @@
 <?php 
 	require_once 'db.php';
 
-	function closeConnection(){
-		if(isset($conn)){
-			$conn.close();
-		}
-	}
-
-	function selectData(){
-		$stmt = $conn->prepare("SELECT id, firstname, lastname FROM MyGuests");
-	    $stmt->execute();
-
-	    // set the resulting array to associative
-	    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-	        echo $v;
-	    }
-	}
-
-	function insertData(){
-		// prepare and bind
-		$stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)");
-		$stmt->bind_param("sss", $firstname, $lastname, $email);			// sss indicate format is in string.
-
-		// set parameters and execute
-		$firstname = "John";
-		$lastname = "Doe";
-		$email = "john@example.com";
-		$stmt->execute();
-
-		$firstname = "Mary";
-		$lastname = "Moe";
-		$email = "mary@example.com";
-		$stmt->execute();
-
-		$firstname = "Julie";
-		$lastname = "Dooley";
-		$email = "julie@example.com";
-		$stmt->execute();
-
-		echo "New records created successfully";
-
-		$stmt->close();
-	}
-
 	function login($email, $password){
 		global $conn;
 

@@ -1,63 +1,99 @@
-<!-- This is the header for customer dashboard -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title></title>
-	<meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+
+    <title>Admin Page</title>
+
 </head>
+
 <body class="sb-nav-fixed">
-	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <h5 style="color:white;margin-left: 20px;margin-top: 3px;">Admin Registration</h5>
-    </nav>
+    <?php
+    require_once 'header.php';
+    ?>
+    <div id="layoutSidenav_content">
+        <main>
+            <br><br>
 
-    <form name="admin_login" id="admin_login" align="center">
-    <label>
-        <br>
-        <br>
-        <br>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text p-10" id="basic-addon1">Email ID &nbsp &nbsp </span>
-            </div>
-        <input type="text" class="form-control" placeholder="Email ID">
-        </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text p-10" id="basic-addon1">Password &nbsp</span>
-            </div>
-        <input type="text" class="form-control" placeholder="Password">
-        </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text p-10" id="basic-addon1">First Name </span>
-            </div>
-        <input type="text" class="form-control" placeholder="First Name">
-        </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text p-10" id="basic-addon1">Last Name </span>
-            </div>
-        <input type="text" class="form-control" placeholder="Last Name">
-        </div>
-        <button type="button" class="btn btn-success"> &nbsp &nbsp &nbsp &nbsp Register &nbsp &nbsp &nbsp &nbsp</button>
-        &nbsp 
-        <a href="admin_login.php"><button type="button" class="btn btn-info"> &nbsp &nbsp  &nbsp  &nbsp Go Back &nbsp &nbsp &nbsp &nbsp</button></a>        
-    </label>
+<!-- ERROR HANDLING DIV -->
 
-    </form>
-        
-        
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        
+<div id="error" style="display:<?php echo isset($_SESSION['display']) ? $_SESSION['display'] : 'none;';
+                               unset($_SESSION['display']); ?> ">
+  <div class="<?php echo isset($_SESSION['alert_class']) ? $_SESSION['alert_class'] : 'none;';
+               unset($_SESSION['alert_class']); ?>">
+    <?php echo isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : 'none;';
+     unset($_SESSION['errorMsg']);  ?></div>
+</div>
+
+<!-- END OF ERROR HANDLING DIV -->
+
+            <!-- ADMIN REGISTER -->
+            <div class="card mb-10">
+                <div class="card-header">
+                    <center style='font-weight: bold;'><i class="fas fa-plus"></i>Add another admin</center>
+                </div>
+                <div class="card-body">
+                    <form name="admin_login" id="admin_login" align="center" method="POST">
+                        <label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text p-10" id="basic-addon1">Email ID &nbsp; &nbsp; </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Email ID" required name="email">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text p-10" id="basic-addon1">Password &nbsp;</span>
+                                </div>
+                                <input type="password" class="form-control" placeholder="Password" required name="password">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text p-10" id="basic-addon1">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="First Name" required name="name">
+                            </div>
+                            <button class="btn btn-success col-md-12" type="submit" name="registerAdmin"><b>Register Admin</b></button>
+                        </label>
+
+                    </form>
+                </div>
+            </div>
+
+
+        </main>
+        <?php require_once "footer.php"; ?>
+    </div>
+    </div> <!-- This is the ending of the header -->
 </body>
+
 </html>
+
+<?php
+
+// Register code
+if (isset($_POST["registerAdmin"])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $name = $_POST['name'];
+
+    $status = registerAdmin($email, $password, $name);
+    if ($status == 0) {
+        $_SESSION['display'] = "inline";
+        $_SESSION['errorMsg'] = "Error in registering <br> Please try again after some time.";
+        $_SESSION['alert_class'] = "alert alert-danger";
+        echo "<script>window.location.replace('admin_register.php');</script>";
+    } else if ($status == -1) {
+        $_SESSION['display'] = "inline";
+        $_SESSION['errorMsg'] = "Error in registering admin! <br> Email already exists.";
+        $_SESSION['alert_class'] = "alert alert-danger";
+        echo "<script>window.location.replace('admin_register.php');</script>";
+    } else {
+        $_SESSION['display'] = "inline";
+        $_SESSION['errorMsg'] = "Successfully registered admin!";
+        $_SESSION['alert_class'] = "alert alert-success";
+        echo "<script>window.location.replace('admin_register.php');</script>";
+    }
+}
+
+?>
