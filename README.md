@@ -1,16 +1,16 @@
 # A comprehensive Web Application
 ## PHP - Bootstrap - MySQL - JavaScript
 
-**Developed by:** *Kunal Ninawe and Pulak Mehta*
-**Course Name:** *CS-GY-6083- Principles of Database Systems*
-**Development environment:** *WAMP Server (Windows Apache MySQL PHP)* 
-**Programming:** PHP 
-**Scripting:** 
+* **Developed by:** *Kunal Ninawe and Pulak Mehta*
+* **Course Name:** *CS-GY-6083- Principles of Database Systems*
+* **Development environment:** *WAMP Server (Windows Apache MySQL PHP)* 
+* **Programming:** PHP 
+* **Scripting:** 
 *Client side - JavaScript*
 *Server Side - PHP*
-**Database used:** *MySQL*
-**Designing Tool:** *HTML5, CSS3 and Bootstrap* 
-**Code Editor:** Sublime Text3 and Visual Studio Code 
+* **Database used:** *MySQL*
+* **Designing Tool:** *HTML5, CSS3 and Bootstrap* 
+* **Code Editor:** Sublime Text3 and Visual Studio Code 
 
 **Objectives:**
 *This insurance website can broadly do these follow tasks:*
