@@ -1,5 +1,8 @@
-# Web Application made with PHP-Bootstrap-MySQL-JavaScript-GoogleCharts
-## This website was jointly developed by Kunal Ninawe and Pulak Mehta for the CSGY-6083- B Spring 2020 course (Principles of Database Systems). 
+# A comprehensive Web Application
+## PHP - Bootstrap - MySQL - JavaScript
+
+**Developed by:** *Kunal Ninawe and Pulak Mehta*
+**Course Name:** *CS-GY-6083- Principles of Database Systems*
 
 **Objectives:**
 *This insurance website can broadly do these follow tasks:*
