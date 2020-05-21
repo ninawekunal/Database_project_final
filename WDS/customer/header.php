@@ -11,7 +11,7 @@ if(!isset($_SESSION['email'])){
 
 function autoLogout(){
     if(isset($_SESSION['email'])){
-        $mins = 30;
+        $mins = 60;
         if((time() - $_SESSION['last_login_time'])>(60*$mins)){
             echo "<script>window.location.replace('logout.php');</script>";
         }
