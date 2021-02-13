@@ -10,6 +10,7 @@
 * **Database used:** *MySQL*
 * **Designing Tool:** *HTML5, CSS3 and Bootstrap* 
 * **Code Editor:** Sublime Text3 and Visual Studio Code 
+* **Test Username and Password:** U: test@test.com || P:123456 
 
 **Objectives:**
 *This insurance website can broadly do these follow tasks:*
